@@ -11,7 +11,17 @@ const requestOptions = {
    redirect: "follow"
 };
 
-fetch("https://Top-Goodread-Books-collection-1980-to-2023.proxy-production.allthingsdev.co/api/v1/bookread/genre?genre=history", requestOptions)
-   .then((response) => response.text())
-   .then((result) => console.log(result))
-   .catch((error) => console.error(error));
+!async function() {
+    let books = fetch("https://Top-Goodread-Books-collection-1980-to-2023.proxy-production.allthingsdev.co/api/v1/bookread/genre?genre=history", requestOptions)
+       .then((response) => response.text())
+       .then((result) => {
+        displayBooks(result);
+        return result;
+        })
+       .catch((error) => console.error(error));  
+}();
+
+function displayBooks(data){
+    let myBooks = JSON.parse(data);
+    console.log(myBooks);
+}
