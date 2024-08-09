@@ -12,7 +12,7 @@ const requestOptions = {
 };
 
 !async function() {
-    let books = fetch("https://Top-Goodread-Books-collection-1980-to-2023.proxy-production.allthingsdev.co/api/v1/bookread/genre?genre=history", requestOptions)
+    let books = await fetch("https://Top-Goodread-Books-collection-1980-to-2023.proxy-production.allthingsdev.co/api/v1/bookread/genre?genre=history", requestOptions)
        .then((response) => response.text())
        .then((result) => {
         displayBooks(result);
@@ -24,4 +24,21 @@ const requestOptions = {
 function displayBooks(data){
     let myBooks = JSON.parse(data);
     console.log(myBooks);
+
+    if (myBooks.success && Array.isArray(myBooks.data) && myBooks.data.length > 0) {
+        
+        let book1 = {
+            title: myBooks.data[3].title,
+            author: myBooks.data[3].authors
+        };
+
+        let book2 = {
+            title: myBooks.data[149].title,
+            author: myBooks.data[149].authors
+        };
+
+        
+        document.getElementById("book1").innerText = `Title: ${book1.title}, Author: ${book1.author}`;
+        document.getElementById("book2").innerText = `Title: ${book2.title}, Author: ${book2.author}`;
+    }
 }
